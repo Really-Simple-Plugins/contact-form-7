@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', event => {
  *      run recaptcha
  */
 function conditionallyRunRecaptcha(){
-    if (cf7_consent_api_active()) {
+	if (cf7_consent_api_active()) {
         document.addEventListener( "wp_listen_for_consent_change", function (e) {
             var changedConsentCategory = e.detail;
             for (var key in changedConsentCategory) {
@@ -23,10 +23,13 @@ function conditionallyRunRecaptcha(){
                 }
             }
         });
-    } else {
-        runReCaptcha();
-    }
-
+        if ( wp_has_consent('marketing') ){
+        	remove_blocked_content_notice()
+        	runReCaptcha();
+        }
+	} else {
+		runReCaptcha();
+	}
 }
 
 

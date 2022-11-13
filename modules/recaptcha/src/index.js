@@ -29,12 +29,16 @@ function conditionallyRunRecaptcha(){
                 }
             }
         });
+        if (wp_has_consent('marketing') ){
+        	remove_blocked_content_notice()
+        	runReCaptcha();
+        }
 	} else {
 		runReCaptcha();
 	}
 }
 
-/**
+/*
  * Wrapper function to check if the consent api is active.
  * @returns {boolean}
  */
